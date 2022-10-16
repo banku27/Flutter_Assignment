@@ -144,7 +144,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                               }),
                         )
                       : SizedBox(
-                          height: 100,
+                          height: 20,
                         ),
                   CarouselSlider.builder(
                     itemCount: quotes?.length,
@@ -230,19 +230,18 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                   ),
                   favList.isEmpty
                       ? SizedBox.shrink()
-                      : CarouselSlider.builder(
-                          itemCount: favList.length,
-                          options: CarouselOptions(
-                            viewportFraction: 0.6,
-                            enlargeCenterPage: favList.length != 1,
-                            aspectRatio: 1.3,
-                          ),
-                          itemBuilder: (context, index, realindex) {
-                            final quote = favList[index];
-                            return Card(
-                              color: primaryDarkColorDark,
-                              child: Center(
-                                child: Container(
+                      : SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                              favList.length,
+                              (index) {
+                                final quote = favList[index];
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                      left: 20, top: 20, right: 10),
+                                  height: 200,
+                                  width: 240,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     gradient: mainGradientDark,
@@ -290,11 +289,14 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                       ],
                                     ),
                                   ),
-                                ),
-                              ),
-                            );
-                          },
+                                );
+                              },
+                            ),
+                          ),
                         ),
+                  SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             );
